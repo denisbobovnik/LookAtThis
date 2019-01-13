@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+  
+<!-- 
+	Vključitev jquery.
+-->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/index.js"></script>
+
+<!-- http://jqueryui.com/autocomplete/  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<h1>Seznam</h1>
+		
+		<form onSubmit="return false;">
+			<input id="searchString" />
+			<input type="submit" id="submit" value="Pošlji" />
+		</form>
+		
+		<div id="seznam_knjig"></div>
+		
+	</div>
+	
+</body>
+</html>

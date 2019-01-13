@@ -1,0 +1,46 @@
+//globalne spremenljivke
+var url_flickr = "http://api.flickr.com/services/feeds/photos_public.gne?tags=&format=json&jsoncallback=?";
+var seznamArtiklov = [];
+var searchString = "";
+
+$(document).ready(function() {
+	
+	displayData(url_flickr);
+  
+	$("form").submit(function() {
+		searchString = $("#searchString").val();
+		var url_search = url_flickr.replace("tags=", "tags=" + searchString);
+		displayData(url_search);
+	});
+	
+});
+
+//klic jsonp spletne storitve
+function displayData(url)
+{
+	seznamArtiklov = [];
+	$.getJSON(url, function(data){		
+			//alertJSON(data);
+				$.each(data.items, function(k, v) {			
+					var id = v.link.split("/").reverse()[1];					
+					seznamArtiklov.push({"id": id, "naziv": v.title, "slika": v.media.m, "datum": v.date_taken});
+					
+				});
+				parseData(seznamArtiklov);
+    });
+}
+
+//prikaz podatkov, lahko se generalizira funkcija in doda id kot atribut
+function parseData(data)
+{
+	$("#seznam_knjig").empty();
+	var stringBuilder = "";
+	stringBuilder = $('<table></table>');
+
+	$.each(data, function(k, v) {
+		var id = v.id;
+		var tdata = $('<tr><td>' + v.naziv  + '</td> <td><img src="' + v.slika + '"/></td> <td>' + v.datum + '</td> <td>' + '<a href="#" onClick="setKosarica('+ id +');">dodaj</a>' + '</td></tr>');		
+		stringBuilder.append(tdata);
+	});
+	$("#seznam_knjig").append(stringBuilder);
+}
